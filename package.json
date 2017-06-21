@@ -1,6 +1,6 @@
 {
   "name": "next-navigation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -24,5 +24,8 @@
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.5.2",
     "babel-preset-stage-2": "^6.24.1"
+  },
+  "dependencies": {
+    "react": "^15.6.1"
   }
 }

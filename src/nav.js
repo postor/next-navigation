@@ -1,7 +1,7 @@
+import React from 'react'
 /**
  * @param {Routes} routes @see https://github.com/fridays/next-routes
  */
-
 export default (routes)=>{
   const { Link } = routes
 
