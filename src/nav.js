@@ -20,14 +20,17 @@ export default (routes)=>{
    */
   const NavItem = (props)=>{
     const {url={}, liProps={}, linkProps={}, children, activeStyle={}, activeClassName='ative', activeLinkStyle={}, activeLinkClassName='', nolink, checkIsActive=isActive} = props
+    
+    const tLiProps = Object.assign({},liProps)
+    
     if(!nolink && checkIsActive(url,linkProps)){
       //li
-      liProps.style = {
+      tLiProps.style = {
         ...liProps.style,
         ...activeStyle,
       }
       var {className = ''} = liProps
-      liProps.className = `${className} ${activeClassName}`
+      tLiProps.className = `${className} ${activeClassName}`
 
       //link
       linkProps.style = {
@@ -38,7 +41,7 @@ export default (routes)=>{
       linkProps.className = `${className} ${activeClassName}`
     }
 
-    return <li {...liProps}>
+    return <li {...tLiProps}>
       {nolink?children:<Link {...linkProps}>{children}</Link>}</li>
 
     /**
