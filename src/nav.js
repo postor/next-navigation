@@ -1,8 +1,10 @@
+import "babel-polyfill";
 import React from 'react'
+
 /**
  * @param {Routes} routes @see https://github.com/fridays/next-routes
  */
-export default (routes)=>{
+export default (routes) => {
   const { Link } = routes
 
   /**
@@ -18,18 +20,18 @@ export default (routes)=>{
    * @param {function=isActive} props.checkIsActive 验证是否为激活为激活的回调，{@link isActive}
    * @param {ReactDom} props.children 子内容
    */
-  const NavItem = (props)=>{
-    const {url={}, liProps={}, linkProps={}, children, activeStyle={}, activeClassName='ative', activeLinkStyle={}, activeLinkClassName='', nolink, checkIsActive=isActive} = props
-    
-    const tLiProps = Object.assign({},liProps)
-    
-    if(!nolink && checkIsActive(url,linkProps)){
+  const NavItem = (props) => {
+    const { url = {}, liProps = {}, linkProps = {}, children, activeStyle = {}, activeClassName = 'ative', activeLinkStyle = {}, activeLinkClassName = '', nolink, checkIsActive = isActive } = props
+
+    const tLiProps = Object.assign({}, liProps)
+
+    if (!nolink && checkIsActive(url, linkProps)) {
       //li
       tLiProps.style = {
         ...liProps.style,
         ...activeStyle,
       }
-      var {className = ''} = liProps
+      var { className = '' } = liProps
       tLiProps.className = `${className} ${activeClassName}`
 
       //link
@@ -37,12 +39,12 @@ export default (routes)=>{
         ...linkProps.style,
         ...activeStyle,
       }
-      var {className = ''} = linkProps
+      var { className = '' } = linkProps
       linkProps.className = `${className} ${activeClassName}`
     }
 
     return <li {...tLiProps}>
-      {nolink?children:<Link {...linkProps}>{children}</Link>}</li>
+      {nolink ? children : <Link {...linkProps}>{children}</Link>}</li>
 
     /**
      * 检查此Link是否匹配当前的url
@@ -51,12 +53,16 @@ export default (routes)=>{
      * @param {string} {route} 接收的是来自props的props.linkProps对象，这里只用到了route
      * @returns {boolean}
      */
-    function isActive({pathname},{route}){
-      if(!pathname || !route || !routes.findByName(route)){
-        console.log([pathname,route,routes.findByName(route),'not found!!!'])
+    function isActive({ pathname }, { route }) {
+      if (!pathname || !route) {
+        console.log([pathname, route, 'pathname and route should not be undefined!!!'])
         return false
       }
-      return routes.findByName(route).page ===  pathname
+      if (!routes.findByName(route)) {
+        return pathname.startsWith('/' + route)
+      }
+
+      return routes.findByName(route).page === pathname
     }
   }
 
@@ -71,9 +77,9 @@ export default (routes)=>{
    * @param {string} props.activeClassName 激活时追加的类（向NavItem传递）
    * @param {function=isActive} props.checkIsActive 验证是否为激活为激活的回调，{@link isActive}（向NavItem传递）
    */
-  const MyNav = (props)=>{
+  const MyNav = (props) => {
     return <ul {...props.ulProps}>
-      {props.links.map((link,i)=>{
+      {props.links.map((link, i) => {
         var linkProps = {
           ...props,
           ...link,
