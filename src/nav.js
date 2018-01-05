@@ -42,8 +42,10 @@ export default (routes) => {
       linkProps.className = `${className} ${activeClassName}`
     }
 
+    const { route, href, prefetch } = linkProps
+    const p = { route, href, prefetch }
     return <li {...tLiProps}>
-      {nolink ? children : <Link {...linkProps}>{children}</Link>}</li>
+      {nolink ? children : <Link {...p}>{children}</Link>}</li>
 
     /**
      * 检查此Link是否匹配当前的url
